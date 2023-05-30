@@ -5,8 +5,10 @@
   "repository": "git@github.com:EllianCarlos/comp-nuvem.git",
   "license": "MIT",
   "scripts": {
-    "pub": "node test/publisher.js",
-    "sub": "node src/index.js",
+    "pub:auth": "ts-node src/auth/producer.ts",
+    "sub:auth": "ts-node src/auth/consumer.ts",
+    "pub:data": "ts-node src/data/producer.ts",
+    "sub:data": "ts-node src/data/consumer.ts",
     "build": "tsc ./src"
   },
   "dependencies": {
