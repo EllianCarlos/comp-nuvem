@@ -18,7 +18,7 @@
     "jsonwebtoken": "^9.0.0",
     "kafkajs": "^2.2.4",
     "mongoose": "^7.2.1",
-    "synchronized-promise": "^0.3.1"
+    "synchronized-promise": "^0.3.1 "
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
