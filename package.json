@@ -9,7 +9,7 @@
     "sub:auth": "ts-node src/auth/consumer.ts",
     "pub:data": "ts-node src/data/producer.ts",
     "sub:data": "ts-node src/data/consumer.ts",
-    "build": "tsc ./src"
+    "build": "tsc --project tsconfig.json"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -7,6 +7,7 @@ export const handler = async () => {
   await consumer.subscribe({ topic: 'test-topic', fromBeginning: true });
 
   await consumer.run({
+    // @ts-ignore
     eachMessage: async ({ topic, partition, message }) => {
       console.log({
         value: message.value.toString(),

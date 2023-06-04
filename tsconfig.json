@@ -4,6 +4,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "noLib": false,
+    "rootDir": "./src",
     "moduleResolution": "node16",
     "module": "commonjs",
     "noUnusedLocals": true,
