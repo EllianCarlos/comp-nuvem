@@ -28,20 +28,12 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  mqtts:
-    image: eclipse-mosquitto:latest
-    ports:
-      - 1883:1883
-      - 9001:9001
-    expose:
-      - 1883
-      - 9001
-    networks:
-      - app
   mongo-express:
     image: mongo-express
     ports:
       - 8081:8081
+    depends_on:
+      - mongo
     environment:
       ME_CONFIG_MONGODB_PORT: 27017
     links:
