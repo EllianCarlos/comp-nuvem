@@ -9,7 +9,7 @@
     "sub:auth": "ts-node src/auth/consumer.ts",
     "pub:data": "ts-node src/data/producer.ts",
     "sub:data": "ts-node src/data/consumer.ts",
-    "build": "tsc ./src"
+    "build": "tsc --project tsconfig.json"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "eslint": "^8.0.1",

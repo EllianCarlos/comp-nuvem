@@ -28,20 +28,12 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  mqtts:
-    image: eclipse-mosquitto:latest
-    ports:
-      - 1883:1883
-      - 9001:9001
-    expose:
-      - 1883
-      - 9001
-    networks:
-      - app
   mongo-express:
     image: mongo-express
     ports:
       - 8081:8081
+    expose: 
+      - 8081
     environment:
       ME_CONFIG_MONGODB_PORT: 27017
     links:
@@ -56,6 +48,30 @@ services:
       - app
     volumes:
       - ./db:/data/db:rw
+  auth:
+    build:
+        context: .
+        target: auth
+    depends_on: 
+      - kafka
+    network_mode: host
+  data:
+    build:
+        context: .
+        target: data
+    depends_on: 
+      - kafka
+    network_mode: host
+  report:
+    build:
+        context: .
+        target: report
+    depends_on: 
+      - kafka
+    expose:
+      - 9001
+    network_mode: host
+    
   ## TODO?: add python application
 
 volumes:

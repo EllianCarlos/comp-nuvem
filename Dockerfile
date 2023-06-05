@@ -1,12 +1,52 @@
-# syntax=docker/dockerfile:1
+FROM node:16-alpine as auth
 
-FROM python:3.8-slim-buster
+WORKDIR /usr/src/app
 
-WORKDIR /app
-
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-
+COPY package*.json ./
+COPY .env ./
 COPY . .
 
-CMD ["python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+RUN npm install
+
+RUN npm run build
+
+RUN npm install --omit=dev
+
+CMD [ "node", "dist/auth/consumer.js" ]
+
+######################################################
+
+FROM node:16-alpine as data
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+COPY .env ./
+COPY . .
+
+RUN npm install
+
+RUN npm run build
+
+RUN npm install --omit=dev
+
+CMD [ "node", "dist/data/consumer.js" ]
+
+######################################################
+
+FROM node:16-alpine as report
+
+WORKDIR /usr/src/app
+
+
+COPY package*.json ./
+COPY .env ./
+COPY . .
+
+RUN npm install
+
+RUN npm run build
+
+RUN npm install --omit=dev
+
+CMD [ "node", "dist/report/controller/report.js" ]
