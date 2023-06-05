@@ -2,5 +2,9 @@ node_modules
 dist
 lib
 ./db
+!./src/auth/db
+!./src/data/db
+!./src/report/db
+!./src/**/db
 .env
 yarn-error.log
