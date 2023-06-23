@@ -72,6 +72,8 @@ services:
       - kafka
     expose:
       - 9001
+    ports:
+      - 20173:9001
     network_mode: host
     
   ## TODO?: add python application
