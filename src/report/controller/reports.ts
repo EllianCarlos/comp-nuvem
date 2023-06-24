@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { dataModel, ensureConnection } from '../db/mongo';
 const app = express();
-const port = 20153;
+const port = 20173;
 
 // @ts-ignore
 app.get('/', (req: Request, res: Response) => {
