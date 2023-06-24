@@ -3,5 +3,5 @@ import './common/config';
 
 export const kafka = new Kafka({
   clientId: 'my-app',
-  brokers: ['localhost:20153'],
+  brokers: ['localhost:9092'],
 });
