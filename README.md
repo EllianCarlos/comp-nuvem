@@ -11,7 +11,8 @@
 ## Como instalar
 Para instalar, baixe este repositório e execute-o em um ambiente docker, que pode ser feito através do procedimento abaixo.
 Em uma pasta de sua escolha e clone o repositório usando o Git e use o `docker compose` para subir a aplicação:
-bash
+```bash
 git clone https://github.com/EllianCarlos/comp-nuvem.git
 cd comp-nuvem
 docker compose up -d
+```
