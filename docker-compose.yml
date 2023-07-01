@@ -9,6 +9,11 @@ services:
     image: confluentinc/cp-zookeeper:latest
     networks:
       - app
+    ports:
+      - 2181:2181
+    expose:
+      - 2181
+    restart: always
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -23,10 +28,12 @@ services:
       - 9092:9092
     expose:
       - 9092
+    restart: always
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -34,7 +41,7 @@ services:
     image: mongo-express
     ports:
       - 8081:8081
-    expose: 
+    expose:
       - 8081
     depends_on:
       - mongo
@@ -42,40 +49,51 @@ services:
       ME_CONFIG_MONGODB_PORT: 27017
     links:
       - mongo
+    restart: always
     networks:
       - app
   mongo:
     image: mongo:4.2.24
     ports:
-      - "27017:27017"
+      - 27017:27017
+    expose:
+      - 27017
+    restart: always
     networks:
       - app
     volumes:
       - ./db:/data/db:rw
   auth:
     build:
-        context: .
-        target: auth
-    depends_on: 
+      context: .
+      target: auth
+    depends_on:
       - kafka
-    network_mode: host
+    networks:
+      - app
+    restart: always
   data:
     build:
-        context: .
-        target: data
-    depends_on: 
+      context: .
+      target: data
+    depends_on:
       - kafka
-    network_mode: host
+    networks:
+      - app
+    restart: always
   report:
     build:
-        context: .
-        target: report
-    depends_on: 
+      context: .
+      target: report
+    depends_on:
       - kafka
+    ports:
+      - 9038:9038
     expose:
-      - 9001
-    network_mode: host
-    
+      - 9038
+    restart: always
+    networks:
+      - app
   ## TODO?: add python application
 
 volumes:
